@@ -42,4 +42,4 @@ mvn --no-transfer-progress clean install
 e.g. ```localhost:8080/OnlinePDFReader```
 
 ## Credits
-此程式依賴之[pdf2htmlEX-Server](https://github.com/a2823kevin/pdf2htmlEX-Server)使用了*pdf2htmlEX*(https://github.com/pdf2htmlEX/pdf2htmlEX)作為PDF檔案轉換工具。
+此程式依賴之[pdf2htmlEX-Server](https://github.com/a2823kevin/pdf2htmlEX-Server)使用了*pdf2htmlEX* (https://github.com/pdf2htmlEX/pdf2htmlEX) 作為PDF檔案轉換工具。
