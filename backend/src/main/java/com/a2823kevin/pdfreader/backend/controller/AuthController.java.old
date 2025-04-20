@@ -1,0 +1,58 @@
+package edu.proj.onlinepdfreader.demo.controller;
+
+import edu.proj.onlinepdfreader.utils.AppClients;
+import edu.proj.onlinepdfreader.utils.AppDatabase;
+import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    @GetMapping
+    public HashMap<String, String> getAuthInfo(@SessionAttribute(value = "sessionId", required = false) String sessionId) {
+        HashMap<String, String> resp = new HashMap<>();
+        AppClients.ClientInfo client = AppClients.getInstance().getClient(sessionId);
+        resp.put("id", client != null ? client.getId() : "-1");
+        return resp;
+    }
+
+    @PostMapping("/login")
+    public HashMap<String, String> login(@RequestBody HashMap<String, String> reqContent, @SessionAttribute("sessionId") String sessionId) {
+        HashMap<String, String> resp = new HashMap<>();
+        try {
+            boolean passwordCorrect = AppDatabase.getInstance().verifyPassword(reqContent.get("id"), reqContent.get("password"));
+            resp.put("status", passwordCorrect ? "Success" : "Failed");
+            if (passwordCorrect) {
+                AppClients.getInstance().addClient(sessionId, reqContent.get("id"));
+            }
+        }
+        catch (Exception e) {
+            resp.put("status", "Failed");
+        }
+        return resp;
+    }
+
+    @PostMapping("/logout")
+    public void logout(@SessionAttribute("sessionId") String sessionId) {
+        AppClients.getInstance().removeClient(sessionId);
+    }
+
+    @PostMapping("/signup")
+    public HashMap<String, String> signup(@RequestBody HashMap<String, String> reqContent, @SessionAttribute("sessionId") String sessionId) {
+        HashMap<String, String> resp = new HashMap<>();
+        try {
+            int result = AppDatabase.getInstance().addAcount(reqContent.get("id"), reqContent.get("password"));
+            if (result == 1) {
+                resp.put("status", "Success");
+                AppClients.getInstance().addClient(sessionId, reqContent.get("id"));
+            } else {
+                resp.put("status", "Failed");
+            }
+        }
+        catch (Exception e) {
+            resp.put("status", "Failed");
+        }
+        return resp;
+    }
+}

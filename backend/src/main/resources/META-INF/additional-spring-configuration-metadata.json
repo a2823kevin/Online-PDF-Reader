@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "storage.htmlpath",
+    "type": "java.lang.String",
+    "description": "html store path"
+  },
+  {
+    "name": "storage.pdfpath",
+    "type": "java.lang.String",
+    "description": "pdf store path"
+  },
+  {
+    "name": "external.pdf2html-server.url",
+    "type": "java.lang.String",
+    "description": "pdf2html server url'"
+  }
+]}
