@@ -8,17 +8,15 @@ import com.a2823kevin.pdfreader.backend.dto.ConversionStateDTO;
 import com.a2823kevin.pdfreader.backend.dto.UploadPDFResponseDTO;
 import com.a2823kevin.pdfreader.backend.service.ConverterService;
 
+import lombok.RequiredArgsConstructor;
+
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/convert")
+@RequestMapping("/api/convert")
+@RequiredArgsConstructor
 public class ConverterController {
-
     private final ConverterService converterService;
-
-    public ConverterController(ConverterService converterService) {
-        this.converterService = converterService;
-    }
 
     /**
      * upload pdf

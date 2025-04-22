@@ -2,11 +2,9 @@ package com.a2823kevin.pdfreader.backend.dto;
 
 import com.a2823kevin.pdfreader.backend.model.UploadPdfStatus;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UploadPDFResponseDTO {
     private UploadPdfStatus status;
     private String taskId;

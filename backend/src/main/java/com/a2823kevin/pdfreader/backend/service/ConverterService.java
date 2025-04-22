@@ -33,20 +33,20 @@ import java.util.UUID;
 public class ConverterService {
     private final Pdf2htmlServerProperties pdf2htmlServerProperties;
     private final FileSavingProperties fileSavingProperties;
+    private final BookRepository bookRepository;
 
     private final WebClient webClient;
-    private final BookRepository bookRepository;
 
     public ConverterService(Pdf2htmlServerProperties pdf2htmlServerProperties, FileSavingProperties fileSavingProperties, BookRepository bookRepository) {
         this.pdf2htmlServerProperties = pdf2htmlServerProperties;
         this.fileSavingProperties = fileSavingProperties;
+        this.bookRepository = bookRepository;
 
         this.webClient = WebClient.builder()
         .baseUrl(this.pdf2htmlServerProperties.getUrl()
         ).exchangeStrategies(ExchangeStrategies.builder()
             .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(1024 * 1024 * 1024))
         .build()).build();
-        this.bookRepository = bookRepository;
     }
 
     /**

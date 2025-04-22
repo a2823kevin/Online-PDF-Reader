@@ -2,11 +2,9 @@ package com.a2823kevin.pdfreader.backend.dto;
 
 import com.a2823kevin.pdfreader.backend.model.ConversionStatus;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class ConversionStateDTO {
     private ConversionStatus status;
     private String progress;

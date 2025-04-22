@@ -3,13 +3,12 @@ package com.a2823kevin.pdfreader.backend.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 
 @Configuration
 @ConfigurationProperties(prefix = "external.pdf2html-server")
-@Getter
-@Setter
+@Data
 public class Pdf2htmlServerProperties {
     private String url;
 }

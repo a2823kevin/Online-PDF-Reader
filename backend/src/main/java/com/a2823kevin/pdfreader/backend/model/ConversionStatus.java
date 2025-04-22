@@ -3,13 +3,13 @@ package com.a2823kevin.pdfreader.backend.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public enum ConversionStatus {
     WORKING("working"), FINISHED("finished"), FAILED("failed");
 
     private final String value;
-    ConversionStatus(String status) {
-        this.value = status;
-    }
 
     @JsonValue
     public String getValue() {

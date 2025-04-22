@@ -5,13 +5,12 @@ import java.io.File;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class FolderInitializer implements CommandLineRunner {
     private final FileSavingProperties fileSavingProperties;
-
-    FolderInitializer(FileSavingProperties fileSavingProperties) {
-        this.fileSavingProperties = fileSavingProperties;
-    }
 
     @Override
     public void run(String... args) throws Exception {

@@ -13,5 +13,15 @@
     "name": "external.pdf2html-server.url",
     "type": "java.lang.String",
     "description": "pdf2html server url'"
+  },
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": "JWT secret"
+  },
+  {
+    "name": "jwt.expiration-time",
+    "type": "java.lang.String",
+    "description": "JWT expiration time"
   }
 ]}
