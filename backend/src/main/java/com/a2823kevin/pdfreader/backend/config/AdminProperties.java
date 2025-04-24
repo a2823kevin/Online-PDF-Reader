@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Configuration;
 
 import lombok.Data;
 
-
 @Configuration
-@ConfigurationProperties(prefix = "external.pdf2html-server")
+@ConfigurationProperties(prefix = "admin")
 @Data
-public class Pdf2htmlServerProperties {
-    private String url;
+public class AdminProperties {
+    private String username;
+    private String password;
 }

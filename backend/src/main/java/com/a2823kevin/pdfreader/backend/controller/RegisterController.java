@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.a2823kevin.pdfreader.backend.dto.RegisterRequestDTO;
-import com.a2823kevin.pdfreader.backend.dto.RegisterResponseDTO;
+import com.a2823kevin.pdfreader.backend.dto.ApiResponse;
+import com.a2823kevin.pdfreader.backend.dto.auth.RegisterRequestDTO;
 import com.a2823kevin.pdfreader.backend.service.UserService;
 
 import jakarta.validation.Valid;
@@ -21,11 +21,11 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO request) {
-        if (userService.isUsernameTaken(request.getUsername())) {
-            return ResponseEntity.badRequest().body(RegisterResponseDTO.errorUsernameTaken(request.getUsername()));
+        ApiResponse<?> response = userService.registerUser(request);
+        if (response.getStatus().equals("ok")) {
+            return ResponseEntity.ok(response);
         }
-
-        RegisterResponseDTO response = userService.registerUser(request);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.badRequest().body(response);
+        
     }
 }

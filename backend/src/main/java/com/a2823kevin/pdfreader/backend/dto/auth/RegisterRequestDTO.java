@@ -1,11 +1,13 @@
-package com.a2823kevin.pdfreader.backend.dto;
+package com.a2823kevin.pdfreader.backend.dto.auth;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class LoginRequestDTO {
+public class RegisterRequestDTO {
     @NotBlank
+    @Size(min = 8, max = 32)
     private String username;
 
     @NotBlank
