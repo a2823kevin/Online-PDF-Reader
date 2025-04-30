@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom, APP_INITIALIZER } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,12 +10,22 @@ import zh from '@angular/common/locales/zh';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { JwtModule } from "@auth0/angular-jwt";
+import { JWT_OPTIONS, JwtModule } from "@auth0/angular-jwt";
+import { JwtConfigService } from './services/jwt-config.service';
 
 registerLocaleData(zh);
 
 export function tokenGetter() {
   return localStorage.getItem("opr_token");
+}
+
+export function provideJwtOptions(jwtConfigService: JwtConfigService) {
+  jwtConfigService.load();
+  console.log(jwtConfigService.getAllowedDomains());
+  return {
+    tokenGetter: tokenGetter,
+    allowedDomains: jwtConfigService.getAllowedDomains(),
+  };
 }
 
 export const appConfig: ApplicationConfig = {
@@ -30,11 +40,15 @@ export const appConfig: ApplicationConfig = {
       JwtModule.forRoot({
           config: {
               tokenGetter: tokenGetter,
-              // allowedDomains: ["example.com"],
-              // disallowedRoutes: ["http://example.com/examplebadroute/"],
+              allowedDomains: []
           },
       }),
-  ),
+    ),
+    {
+      provide: JWT_OPTIONS,
+      useFactory: provideJwtOptions,
+      deps: [JwtConfigService],
+    },
     provideHttpClient(withInterceptorsFromDi())
   ]
 };

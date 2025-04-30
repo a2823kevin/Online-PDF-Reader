@@ -43,7 +43,9 @@ public class UserService {
 
             // get jwt
             ApiResponse<?> loginResponse = authenticateUser(new LoginRequestDTO(user.getUsername(), request.getPassword()));
-            if (loginResponse.getData() instanceof String token) {
+            Object data = loginResponse.getData();
+            if (data instanceof String) {
+                String token = (String) data;
                 return ApiResponse.success(
                     String.format("Registration of %s is success.", user.getUsername()), 
                     token
