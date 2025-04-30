@@ -1,0 +1,54 @@
+<div class="navbar" nz-flex nzJustify="space-between" nzAlign="center">
+  <div nz-flex nzGap="middle">
+    <div nz-flex nzAlign="center">
+      <app-logo></app-logo>
+    </div>
+    <ul class="menu" nz-menu nzMode="horizontal">
+      <li [class]="page==='bookshelf'?'ant-menu-item-selected':''" nz-menu-item routerLink="/bookshelf">
+        <nz-icon nzType="book" />
+        Bookshelf
+      </li>
+      @if (userContextService.getUserRoles().includes(role.ADMIN)) {
+        <li [class]="page==='dashboard'?'ant-menu-item-selected':''" nz-menu-item routerLink="/dashboard">
+          <nz-icon nzType="dashboard" />
+          Dashboard
+        </li>
+      }
+    </ul>
+  </div>
+
+  @if (page==="bookshelf") {
+    <nz-input-group class="search" [nzSuffix]="suffixIconSearch">
+      <input nz-input type="text" [(ngModel)]="bookQuery" placeholder="Search book" (ngModelChange)="handleBookQuery($event)" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+        <nz-icon nzType="search" />
+    </ng-template>
+  }
+  @else if (page==="reader" && sliderMaxValue) {
+    <div nz-row class="pageControll" nzGutter=8>
+      <div nz-col nzSpan="20">
+        <nz-slider style="width: 100%;" [nzMin]="1" [nzMax]="sliderMaxValue" [(ngModel)]="sliderValue" (ngModelChange)="handlePageChange($event)"></nz-slider>
+      </div>
+      <div nz-col nzSpan="4">
+        <nz-input-number [nzMin]="1" [nzMax]="sliderMaxValue" [(ngModel)]="sliderValue" (ngModelChange)="handlePageChange($event)"></nz-input-number>
+      </div>
+    </div>
+
+  }
+
+  <div class="auth" nz-flex nzMode="horizontal">
+    @if (this.userContextService.getUserName()) {
+      <div>{{this.userContextService.getUserName()}}</div>
+      <div (click)="openLogout();">Logout</div>
+    }
+    @else {
+      <div (click)="openLogin();">Login</div>
+      <div (click)="openRegister();">Register</div>
+    }
+  </div>
+</div>
+
+<app-login-modal [(isVisible)]="isLoginModalVisible"></app-login-modal>
+<app-register-modal [(isVisible)]="isRegisterModalVisible"></app-register-modal>
+<app-logout-modal [(isVisible)]="isLogoutModalVisible"></app-logout-modal>

@@ -1,0 +1,33 @@
+.bookshelf {
+    position: relative;
+    left: 2.5%;
+    width: 95%;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.recent {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.bookshelfBtn {
+    position: absolute; 
+    top:calc(50% - 3.5cqw); 
+    width: 7cqw;
+    height: 7cqw;
+    z-index:99;
+    nz-icon {
+        font-size: 5cqw;
+    }
+}
+
+.toLeft {
+    left:-1%;
+}
+
+.toRight {
+    right:-1%;
+}

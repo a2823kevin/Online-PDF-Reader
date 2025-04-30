@@ -1,0 +1,33 @@
+nz-header {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    background: linear-gradient(60deg, rgb(150, 0, 0), rgb(100, 0, 0)) !important;
+    color: whitesmoke !important;
+}
+
+nz-content {
+    margin-top: 13vh;
+    margin-bottom: 2vh;
+    margin-inline: 2%;
+}
+
+nz-footer {
+    color: rgb(100, 100, 100) !important;
+    background: rgb(230, 230, 230) !important;
+    a {
+        color: rgb(100, 100, 100);
+    }
+}
+
+.ant-menu-title-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ant-card-cover {
+    &:hover {
+        cursor: pointer;
+    }
+}

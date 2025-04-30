@@ -32,6 +32,11 @@ public class Initializer implements CommandLineRunner {
             folder.mkdirs();
         }
 
+        folder = new File(fileSavingProperties.getThumbnailpath());
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
         // add roles
         createRoleIfNotExists("USER");
         createRoleIfNotExists("ADMIN");

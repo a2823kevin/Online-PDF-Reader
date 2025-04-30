@@ -1,0 +1,13 @@
+<nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Delete book"
+    nzOkText="Yes"
+    nzCancelText="No"
+    (nzOnCancel)="close()"
+    (nzOnOk)="delete()"
+    [nzOkLoading]="isLoading"
+    >
+    <ng-container *nzModalContent>
+      Are you sure to delete {{book.bookname}}?
+    </ng-container>
+</nz-modal>

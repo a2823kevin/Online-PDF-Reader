@@ -1,0 +1,25 @@
+<div class="book">
+    <nz-card [nzCover]="cover" [nzActions]="[rename, download, delete]" nzHoverable="false">
+        <nz-card-meta
+          [nzTitle]=book.bookname
+          [nzDescription]="bookmark!=null?`${bookmark.page}/${bookmark.totalPage}`:'Not read yet'"
+        >
+        </nz-card-meta>
+    </nz-card>
+
+    <ng-template #cover>
+        <img [alt]=book.id [src]=book.thumbnail [routerLink]="`/reader/${this.book.id}`" />
+    </ng-template>
+    <ng-template #rename>
+        <nz-icon nzType="edit" nzTheme="outline" (click)="openEdit()" />
+    </ng-template>
+    <ng-template #download>
+        <nz-icon nzType="download" nzTheme="outline" (click)="downloadPDF()" />
+    </ng-template>
+    <ng-template #delete>
+        <nz-icon nzType="delete" nzTheme="outline" (click)="openDelete()" />
+    </ng-template>
+</div>
+
+<app-edit-book-modal [book]="book" [(isVisible)]="isEditModalVisible"></app-edit-book-modal>
+<app-delete-book-modal [book]="book" [(isVisible)]="isDeleteModalVisible"></app-delete-book-modal>

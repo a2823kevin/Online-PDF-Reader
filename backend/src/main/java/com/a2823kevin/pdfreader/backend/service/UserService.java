@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.a2823kevin.pdfreader.backend.dto.ApiResponse;
 import com.a2823kevin.pdfreader.backend.dto.UserDTO;
-import com.a2823kevin.pdfreader.backend.dto.auth.AuthenticationResponseDTO;
 import com.a2823kevin.pdfreader.backend.dto.auth.LoginRequestDTO;
 import com.a2823kevin.pdfreader.backend.dto.auth.RegisterRequestDTO;
 import com.a2823kevin.pdfreader.backend.model.BlacklistedToken;
@@ -41,10 +40,16 @@ public class UserService {
             Role userRole = roleRepository.findByName("USER");
             user.setRoles(List.of(userRole));
             userRepository.save(user);
-            return ApiResponse.success(
-                String.format("Registration of %s is success.", user.getUsername()), 
-                null
-            );
+
+            // get jwt
+            ApiResponse<?> loginResponse = authenticateUser(new LoginRequestDTO(user.getUsername(), request.getPassword()));
+            if (loginResponse.getData() instanceof String token) {
+                return ApiResponse.success(
+                    String.format("Registration of %s is success.", user.getUsername()), 
+                    token
+                );
+            }
+            return ApiResponse.error("Unexpected error during registration.");
         }
         return ApiResponse.error(String.format("Username %s has been taken.", request.getUsername()));
     }
@@ -61,10 +66,10 @@ public class UserService {
             return ApiResponse.error("Wrong password.");
         }
 
-        String token = jwtService.generateToken(user.getUsername());
+        String token = jwtService.generateToken(user);
         return ApiResponse.success(
             String.format("User %s login successful.", user.getUsername()), 
-            new AuthenticationResponseDTO(token)
+            token
         );
     }
 

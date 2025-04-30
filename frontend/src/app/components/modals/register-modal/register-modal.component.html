@@ -1,0 +1,41 @@
+<nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Register"
+    nzOkText="Submit"
+    nzCancelText="Cancel"
+    (nzOnCancel)="close()"
+    (nzOnOk)="register()"
+    [nzOkLoading]="isLoading"
+    >
+    <ng-container *nzModalContent>
+        <form nz-form [formGroup]="formGroup">
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="errorTip">
+                <nz-input-group nzPrefixIcon="user">
+                  <input type="text" nz-input formControlName="username" placeholder="Username" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+              <nz-form-control [nzErrorTip]="errorTip">
+                <nz-input-group nzPrefixIcon="lock">
+                  <input type="password" nz-input formControlName="password" placeholder="Password" (keydown.enter)="onEnter()" />
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+        </form>
+
+        <ng-template #errorTip let-control>
+            @if (control.errors?.['required']) {
+                This is required
+            }
+            @if (control.errors?.['minlength']) {
+                Should have at least 8 characters
+            }
+            @if (control.errors?.['maxlength']) {
+                Should have at most 32 characters
+            }
+        </ng-template>
+    </ng-container>
+</nz-modal>

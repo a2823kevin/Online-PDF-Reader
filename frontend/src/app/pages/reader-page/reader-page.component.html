@@ -1,0 +1,29 @@
+<nz-layout>
+    <nz-header>
+        <app-navbar page="reader" [sliderMaxValue]="totalPage" [(sliderValue)]="page"></app-navbar>
+    </nz-header>
+    <nz-content>
+        @if (pdfSrc==="403") {
+            <h1>You don't have permission to browse this book</h1>
+        }
+        @else {
+            <div nz-flex nzJustify="center">
+                <pdf-viewer 
+                [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="false"
+                [(page)]="page"
+                style="width: 750px; height: 85vh"
+                ></pdf-viewer>
+            </div>
+        }
+    </nz-content>
+    <nz-footer>
+        <div>
+            🔗 <a href="https://github.com/a2823kevin/Online-PDF-Reader" target="_blank">Github Repo: https://github.com/a2823kevin/Online-PDF-Reader</a>
+        </div>
+        <div>
+            ✉️ Contact me: lireez404&#64;gmail.com
+        </div>
+    </nz-footer>
+</nz-layout>

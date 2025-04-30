@@ -10,5 +10,5 @@ import lombok.Data;
 @Data
 public class FileSavingProperties {
     private String pdfpath;
-    // private String htmlpath;
+    private String thumbnailpath;
 }

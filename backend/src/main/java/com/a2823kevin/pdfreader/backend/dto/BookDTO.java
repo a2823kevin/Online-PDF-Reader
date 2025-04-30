@@ -16,6 +16,7 @@ public class BookDTO {
     private String category;
     private Visibility visibility;
     private String owner;
+    private String thumbnail;
 
     public BookDTO(Book book) {
         setId(book.getId());
@@ -23,6 +24,6 @@ public class BookDTO {
         setCategory(book.getCategory());
         setVisibility(book.getVisibility());
         setOwner(book.getOwner().getUsername());
-
+        setThumbnail(book.getThumbnail());
     }
 }

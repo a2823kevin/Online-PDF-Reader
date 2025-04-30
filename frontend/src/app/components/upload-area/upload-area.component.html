@@ -1,0 +1,24 @@
+<div style="height: 100%;" nz-flex [nzVertical]="true">
+    <h1>Add Book</h1>
+    <div class="upload">
+        <nz-upload
+            nzType="drag"
+            nzAccept="application/pdf"
+            [nzCustomRequest]="handleUpload"
+            [nzMultiple]="true"
+            [nzDisabled]="isUploading"
+            (nzChange)="handleChange($event)"
+            >
+            <p class="ant-upload-drag-icon">
+                <nz-icon nzType="book" nzTheme="outline" />
+            </p>
+            @if (!isUploading) {
+                <p class="ant-upload-text">Click or drag file to this area to add a new book</p>
+                <p class="ant-upload-hint">Support for single pdf file upload</p>
+            }
+            @else {
+                <p class="ant-upload-text">Uploading file...</p>
+            }
+        </nz-upload>
+    </div>
+</div>

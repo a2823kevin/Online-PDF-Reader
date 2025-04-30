@@ -1,0 +1,13 @@
+<nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Logout"
+    nzOkText="Yes"
+    nzCancelText="No"
+    (nzOnCancel)="close()"
+    (nzOnOk)="logout()"
+    [nzOkLoading]="isLoading"
+    >
+    <ng-container *nzModalContent>
+      {{userContextService.getUserName()}}, Are you sure to logout?
+    </ng-container>
+</nz-modal>

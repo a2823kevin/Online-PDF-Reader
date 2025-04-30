@@ -7,17 +7,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.a2823kevin.pdfreader.backend.dto.ApiResponse;
 import com.a2823kevin.pdfreader.backend.dto.BookDTO;
+import com.a2823kevin.pdfreader.backend.dto.BookmarkDTO;
 import com.a2823kevin.pdfreader.backend.model.Visibility;
 import com.a2823kevin.pdfreader.backend.security.AppUserDetails;
 import com.a2823kevin.pdfreader.backend.service.BookService;
+import com.a2823kevin.pdfreader.backend.service.BookmarkService;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,13 +33,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@PreAuthorize("hasRole('USER')")
 @RestController
 @RequestMapping("/api/bookshelf")
 @RequiredArgsConstructor
 public class BookshelfController {
 
     private final BookService bookService;
+    private final BookmarkService bookmarkService;
 
     @PostMapping("/book")
     public ResponseEntity<?> addBook(@RequestParam("file") MultipartFile file, @AuthenticationPrincipal AppUserDetails userDetails) {
@@ -62,6 +67,69 @@ public class BookshelfController {
             ApiResponse.success(
                 String.format("Find %d books.", books.size()), 
                 books
+            )
+        );
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getCategories(@AuthenticationPrincipal AppUserDetails userDetails) {
+        List<String> categories = bookService.getCategories(userDetails.getId());
+        return ResponseEntity.ok(
+            ApiResponse.success(
+                String.format("Find %d categories.", categories.size()), 
+                categories
+            )
+        );
+    }
+
+    @GetMapping("/thumbnail/{id}")
+    public ResponseEntity<?> getBookThumbnail(@PathVariable String id) {
+        byte[] content = bookService.getBookThumbnail(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<>(content, headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/books/{category}")
+    public ResponseEntity<?> getBooksWithCategory(@PathVariable String category, @AuthenticationPrincipal AppUserDetails userDetails) {
+        if (userDetails==null) {
+            return ResponseEntity.ok(
+                ApiResponse.success(
+                    String.format("Find %d books.", 0), 
+                    new ArrayList<BookDTO>()
+                )
+            );
+        }
+        List<BookDTO> books = bookService.getUserBooksWithCategory(userDetails.getId(), category);
+        return ResponseEntity.ok(
+            ApiResponse.success(
+                String.format("Find %d books.", books.size()), 
+                books
+            )
+        );
+    }
+
+    @GetMapping("/books/recent/{topN}")
+    public ResponseEntity<?> getRecentReadBooks(@PathVariable int topN, @AuthenticationPrincipal AppUserDetails userDetails) {
+        List<BookmarkDTO> bookmarks = bookmarkService.getRecentReadBookmarks(userDetails.getId(), topN);
+        List<BookDTO> books = bookmarks
+            .stream()
+            .map(bm->bookService.getBook(bm.getBookId(), userDetails.getId()))
+            .toList();
+        return ResponseEntity.ok(
+            ApiResponse.success(
+                String.format("Get %d books.", bookmarks.size()), 
+                books
+            )
+        );
+    }
+
+    @GetMapping("/book/{id}")
+    public ResponseEntity<?> getBook(@PathVariable UUID id, @AuthenticationPrincipal AppUserDetails userDetails) {
+        return ResponseEntity.ok(
+            ApiResponse.success(
+                "Get book successfully.", 
+                bookService.getBook(id, userDetails.getId())
             )
         );
     }

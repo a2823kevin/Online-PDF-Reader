@@ -1,0 +1,24 @@
+<nz-layout>
+    <nz-header>
+        <app-navbar page="bookshelf"></app-navbar>
+    </nz-header>
+    <nz-content>
+        @if (userContextService.getUserName()) {
+            <app-bookshelf category=recent></app-bookshelf>
+            @for (category of this.userContextService.getBooks() | extractCategories; track $index) {
+                <app-bookshelf [category]=category></app-bookshelf>
+            }
+        }
+        @else {
+            Login to access your books
+        }
+    </nz-content>
+    <nz-footer>
+        <div>
+            🔗 <a href="https://github.com/a2823kevin/Online-PDF-Reader" target="_blank">Github Repo: https://github.com/a2823kevin/Online-PDF-Reader</a>
+        </div>
+        <div>
+            ✉️ Contact me: lireez404&#64;gmail.com
+        </div>
+    </nz-footer>
+</nz-layout>

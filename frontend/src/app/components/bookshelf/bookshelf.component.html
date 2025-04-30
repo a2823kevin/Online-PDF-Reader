@@ -1,0 +1,79 @@
+@if (category==="recent") {
+    @if (
+        (this.userContextService.getBooks()
+        | filterByIds:recentReadIds
+        | filterByQuery:navbarctlContextService.getBookNameContainString()
+        ).length>0
+    ) {
+        <div nz-row style="padding-block: 2vh;">
+            
+            <div nz-col nzSpan="6">
+                <app-upload-area></app-upload-area>
+            </div>
+
+            <div nz-col nzSpan="18">
+                <div>
+                    <h1 style="padding-left: 2.5%;">Recently read</h1>
+                    <div style="position: relative;">
+                        <button class="bookshelfBtn toLeft" nz-button nzShape="circle" (click)="scrollLeft()">
+                            <nz-icon nzType="left" nzTheme="outline" />
+                        </button>
+                    
+                        <div #rbookshelf nz-row class="bookshelf recent">
+                            @for (
+                                book of 
+                                    (this.userContextService.getBooks()
+                                    | filterByIds:recentReadIds
+                                    | filterByQuery:navbarctlContextService.getBookNameContainString()
+                                    );
+                                track $index
+                            ) {
+                                <div nz-col nzSpan="8">
+                                    <app-book [book]="book"></app-book>
+                                </div>
+                            }
+                        </div>
+                
+                        <button class="bookshelfBtn toRight" nz-button nzShape="circle" (click)="scrollRight()">
+                            <nz-icon nzType="right" nzTheme="outline" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    }
+    @else {
+        <div nz-row style="padding-block: 2vh;">
+            <div nz-col nzSpan="6">
+                <app-upload-area></app-upload-area>
+            </div>
+        </div>
+    }
+
+}
+@else {
+    @if (
+        (this.userContextService.getBooks()
+        | filterByQuery:navbarctlContextService.getBookNameContainString()
+        | filterByCategory:category).length>0
+    ) {
+        <div style="padding-block: 2vh;">
+            <h1 style="padding-left: 2.5%;">{{category}}</h1>
+            <div nz-row class="bookshelf">
+                @for (
+                    book of 
+                        ((this.userContextService.getBooks()
+                        | filterByQuery:navbarctlContextService.getBookNameContainString())
+                        | filterByCategory:category);
+                    track $index
+                ) {
+                    <div nz-col nzSpan="6">
+                        <app-book [book]="book"></app-book>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}

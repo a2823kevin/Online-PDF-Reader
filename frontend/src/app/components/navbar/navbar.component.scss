@@ -1,0 +1,51 @@
+.navbar {
+    top:0%;
+    font-family: fantasy, sans-serif, serif;
+    font-size: 2cqw;
+    user-select: none;
+}
+
+.menu {
+    font-size: 1.7cqw;
+    font-weight: lighter;
+    background: none;
+    color: unset;
+
+    li {
+        &:hover {
+            background-color: whitesmoke;
+            color: rgb(150, 0, 0);
+            &::after {
+                border-bottom: 0.1em solid rgb(150, 0, 0);
+            }
+        }
+        &.ant-menu-item-selected {
+            background-color: whitesmoke;
+            color: rgb(150, 0, 0);
+            &::after {
+                border-bottom: 0.1em solid rgb(150, 0, 0);
+            }
+        }
+    }
+}
+
+.search, .pageControll {
+    width: 30%;
+    div {
+        display: flex; 
+        align-items:center
+    }
+}
+
+.auth {
+    div {
+        box-sizing: border-box;
+        width: 100%;
+        padding-inline: 0.7cqw;
+        transition:all 0.3s;
+        &:hover {
+            background-color: rgb(140, 0, 0);
+            cursor: pointer;
+        }
+    }
+}

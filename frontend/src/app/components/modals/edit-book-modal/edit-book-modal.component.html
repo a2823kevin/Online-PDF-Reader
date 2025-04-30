@@ -1,0 +1,62 @@
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Edit book"
+  [nzOkText]="null"
+  nzCancelText="Close"
+  nzClosable="false"
+  (nzOnCancel)="close()"
+  >
+  <ng-container *nzModalContent>
+    <div nz-flex [nzVertical]="true" nzGap="small">
+      <div nz-flex nzGap="small" nzAlign="center">
+        <span style="width: 30%;">Book name</span>
+        <nz-input-group [nzSuffix]="suffixTemplateName">
+          <input
+            nz-input
+            [(ngModel)]="name"
+            [disabled]="!isNameEditing"
+          />
+        </nz-input-group>
+      </div>
+  
+      <div nz-flex nzGap="small" nzAlign="center">
+        <span style="width: 30%;">Book category</span>
+        <nz-input-group [nzSuffix]="suffixTemplateCategory">
+          <input
+            nz-input
+            [(ngModel)]="category"
+            [disabled]="!isCategoryEditing"
+          />
+        </nz-input-group>
+      </div>
+
+      <div nz-flex nzGap="small" nzAlign="center">
+        <span style="width: 30%;">Book visibility</span>
+        <nz-radio-group [(ngModel)]="visibility" (ngModelChange)="confirmVisibilityEdit($event)" nzButtonStyle="solid">
+          <label nz-radio-button nzValue="private">private</label>
+          <label nz-radio-button nzValue="withlink">with link</label>
+          <label nz-radio-button nzValue="public">public</label>
+        </nz-radio-group>
+      </div>
+    </div>
+
+    <ng-template #suffixTemplateName>
+      @if (!isNameEditing) {
+        <nz-icon nzType="edit" nzTheme="outline" class="clickable" (click)="enableNameEdit()" />
+      }
+      @if (isNameEditing) {
+        <nz-icon nzType="check" nzTheme="outline" class="clickable" (click)="confirmNameEdit()" />
+        <nz-icon nzType="close" nzTheme="outline" class="clickable" (click)="cancelNameEdit()" />
+      }
+    </ng-template>
+    <ng-template #suffixTemplateCategory>
+      @if (!isCategoryEditing) {
+        <nz-icon nzType="edit" nzTheme="outline" class="clickable" (click)="enableCategoryEdit()" />
+      }
+      @if (isCategoryEditing) {
+        <nz-icon nzType="check" nzTheme="outline" class="clickable" (click)="confirmCategoryEdit()" />
+        <nz-icon nzType="close" nzTheme="outline" class="clickable" (click)="cancelCategoryEdit()" />
+      }
+    </ng-template>
+  </ng-container>
+</nz-modal>

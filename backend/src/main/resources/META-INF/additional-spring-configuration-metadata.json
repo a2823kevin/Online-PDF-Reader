@@ -5,6 +5,11 @@
     "description": "pdf store path"
   },
   {
+    "name": "storage.thumbnailpath",
+    "type": "java.lang.String",
+    "description": "thumbnail store path"
+  },
+  {
     "name": "jwt.secret",
     "type": "java.lang.String",
     "description": "JWT secret"
@@ -18,7 +23,7 @@
     "name": "admin.username",
     "type": "java.lang.String",
     "description": "default admin username"
-  }, 
+  },
   {
     "name": "admin.password",
     "type": "java.lang.String",

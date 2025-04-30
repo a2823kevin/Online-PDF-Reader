@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Visibility {
-    PRIVATE("private"), WithLink("withlink"), PUBLIC("public");
+    PRIVATE("private"), WITHLINK("withlink"), PUBLIC("public");
 
     private final String value;
 

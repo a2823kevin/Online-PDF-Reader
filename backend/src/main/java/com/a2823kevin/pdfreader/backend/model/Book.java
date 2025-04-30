@@ -29,11 +29,17 @@ public class Book {
 
     private String name;
 
+    @NotBlank
+    @Column(nullable = false)
     private String category;
 
     @NotBlank
     @Column(nullable = false)
     private String pdfPath;
+
+    @NotBlank
+    @Column(nullable = false)
+    private String thumbnail;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

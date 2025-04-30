@@ -1,0 +1,15 @@
+.upload {
+    height: 100%;
+    background-color: rgb(235, 235, 235);
+    padding: 2%;
+    border-radius: 10px;
+    overflow-y: hidden;
+
+    nz-upload {
+        p {
+            nz-icon {
+                color: rgb(220, 220, 220);
+            }
+        }
+    }
+}

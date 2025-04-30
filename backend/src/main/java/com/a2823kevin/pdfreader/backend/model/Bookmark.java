@@ -1,5 +1,7 @@
 package com.a2823kevin.pdfreader.backend.model;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,20 +19,22 @@ import lombok.Data;
 public class Bookmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    User user;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
-    Book book;
+    private Book book;
 
     @Column(nullable = false)
-    Integer page;
+    private Integer page;
 
     @Column(nullable = false)
-    Integer totalPage;
+    private Integer totalPage;
     
+    @Column(nullable = false)
+    private Date updateTime;
 }

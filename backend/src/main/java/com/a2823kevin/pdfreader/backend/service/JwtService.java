@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.a2823kevin.pdfreader.backend.config.JwtProperties;
+import com.a2823kevin.pdfreader.backend.model.User;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,9 +23,10 @@ public class JwtService {
         expirationTime = jwtProperties.getExpirationTime();
     }
 
-    public String generateToken(String username) {
+    public String generateToken(User user) {
         return Jwts.builder()
-                .subject(username)
+                .subject(user.getUsername())
+                .claim("roles", user.getRoles().stream().map(role->role.getName()).toList())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(signingKey, Jwts.SIG.HS256)

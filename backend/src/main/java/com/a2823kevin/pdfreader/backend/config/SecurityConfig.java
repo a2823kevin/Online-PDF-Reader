@@ -53,7 +53,14 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(requests -> requests
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/bookshelf/**").permitAll()
+                .requestMatchers("/api/bookshelf/thumbnail/**").permitAll()
+                .requestMatchers(
+                    "/*.html", 
+                    "/*.ico", 
+                    "/*.css", 
+                    "/*.js"
+                ).permitAll()
+                .requestMatchers("/", "/bookshelf", "/dashboard", "/reader/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

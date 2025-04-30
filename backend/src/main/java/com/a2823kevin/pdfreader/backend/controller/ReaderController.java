@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.a2823kevin.pdfreader.backend.dto.ApiResponse;
+import com.a2823kevin.pdfreader.backend.dto.BookmarkDTO;
 import com.a2823kevin.pdfreader.backend.security.AppUserDetails;
 import com.a2823kevin.pdfreader.backend.service.BookService;
 import com.a2823kevin.pdfreader.backend.service.BookmarkService;
@@ -52,11 +53,17 @@ public class ReaderController {
 
     @GetMapping("/bookmark/{id}")
     public ResponseEntity<?> getBookmark(@PathVariable UUID id, @AuthenticationPrincipal AppUserDetails userDetails) {
+        BookmarkDTO bookmark = bookmarkService.getBookmark(id, userDetails.getId());
+        if (bookmark!=null) {
+            return ResponseEntity.ok(
+                ApiResponse.success(
+                    "Get bookmark successfully.", 
+                    bookmarkService.getBookmark(id, userDetails.getId())
+                )
+            );
+        }
         return ResponseEntity.ok(
-            ApiResponse.success(
-                "Get bookmark successfully.", 
-                bookmarkService.getBookmark(id, userDetails.getId())
-            )
+            ApiResponse.error("Bookmark hasn't been created.")
         );
     }
 
