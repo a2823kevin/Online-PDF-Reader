@@ -1,0 +1,67 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build and Deploy to ECS
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+      ECS_CLUSTER_NAME: ${{ secrets.ECS_CLUSTER_NAME }}
+      ECS_SERVICE_NAME: ${{ secrets.ECS_SERVICE_NAME }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push Docker image
+        run: |
+          IMAGE_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:latest
+          docker build -t $IMAGE_URI .
+          docker push $IMAGE_URI
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+
+      - name: Replace image and environment in task-definition-template.json
+        run: |
+          IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest"
+          EXECUTION_ROLE_ARN="arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsTaskExecutionRole"
+          jq \
+            --arg executionRoleArn "$EXECUTION_ROLE_ARN" \
+            --arg image "$IMAGE_URI" \
+            --arg username "${{ secrets.ADMIN_USERNAME }}" \
+            --arg password "${{ secrets.ADMIN_PASSWORD }}" \
+            --arg jwt_secret "${{ secrets.JWT_SECRET }}" \
+            --arg jwt_exp "${{ secrets.JWT_EXPIRATION_TIME }}" \
+            '.executionRoleArn = $executionRoleArn
+            | .containerDefinitions[0].image = $image
+              | .containerDefinitions[0].environment = [
+                  { "name": "ADMIN_USERNAME", "value": $username },
+                  { "name": "ADMIN_PASSWORD", "value": $password },
+                  { "name": "JWT_SECRET", "value": $jwt_secret },
+                  { "name": "JWT_EXPIRATION_TIME", "value": $jwt_exp }
+                ]' \
+            task-definition-template.json > task-definition.json
+
+      - name: Deploy ECS service
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
+        with:
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          service: ${{ env.ECS_SERVICE_NAME }}
+          task-definition: task-definition.json
