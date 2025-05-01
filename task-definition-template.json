@@ -11,7 +11,6 @@
     "containerDefinitions": [
       {
         "name": "opr-server",
-        "image": "539247449972.dkr.ecr.ap-northeast-1.amazonaws.com/online-pdf-reader:latest",
         "cpu": 0,
         "portMappings": [
           {
