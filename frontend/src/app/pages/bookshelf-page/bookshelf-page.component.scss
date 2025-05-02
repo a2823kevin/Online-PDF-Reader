@@ -1,0 +1,19 @@
+@media (min-width: 1000px) {
+    .bs {
+        margin-top: 13vh;
+        margin-inline: 2%;
+    }
+    .sider {
+        display: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    .bs {
+        margin-left: 105px;
+    }
+}
+
+.bs {
+    margin-bottom: 2vh;
+}

@@ -9,14 +9,14 @@ import { UserContextService } from '../../services/user-context.service';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { Book } from '../../models/Book';
 import { ExtractCategoriesPipe } from '../../pipes/extract-categories.pipe';
+import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-bookshelf-page',
   imports: [
-    NzLayoutModule, NzInputModule, NzIconModule, NzCardModule, 
-    NavbarComponent,
-    BookshelfComponent, 
-    ExtractCategoriesPipe
+    NzLayoutModule, NzInputModule, NzIconModule, NzCardModule,
+    NavbarComponent, SidebarComponent, BookshelfComponent,
+    ExtractCategoriesPipe,
 ],
   templateUrl: './bookshelf-page.component.html',
   styleUrl: './bookshelf-page.component.scss'

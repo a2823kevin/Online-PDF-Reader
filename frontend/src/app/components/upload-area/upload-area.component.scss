@@ -1,3 +1,13 @@
+@media (max-width: 1000px) {
+    .uploadContainer {
+        padding-inline: 2%;
+    }
+}
+
+.uploadContainer {
+    height: 100%;
+}
+
 .upload {
     height: 100%;
     background-color: rgb(235, 235, 235);

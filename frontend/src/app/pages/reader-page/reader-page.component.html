@@ -1,29 +1,37 @@
 <nz-layout>
-    <nz-header>
-        <app-navbar page="reader" [sliderMaxValue]="totalPage" [(sliderValue)]="page"></app-navbar>
-    </nz-header>
-    <nz-content>
-        @if (pdfSrc==="403") {
-            <h1>You don't have permission to browse this book</h1>
-        }
-        @else {
-            <div nz-flex nzJustify="center">
-                <pdf-viewer 
-                [src]="pdfSrc"
-                [render-text]="true"
-                [original-size]="false"
-                [(page)]="page"
-                style="width: 750px; height: 85vh"
-                ></pdf-viewer>
+    <nz-sider class="sider" nzCollapsible nzWidth="50vw" [nzCollapsedWidth]="100" [nzCollapsed]="true">
+        <app-sidebar page="bookshelf"></app-sidebar>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <app-navbar page="reader" [sliderMaxValue]="totalPage" [(sliderValue)]="page"></app-navbar>
+        </nz-header>
+        <nz-content>
+            <div class="bs">
+                @if (pdfSrc==="403") {
+                    You don't have permission to browse this book
+                }
+                @else {
+                    <div nz-flex nzJustify="center">
+                        <pdf-viewer 
+                        class="viewer"
+                        [src]="pdfSrc"
+                        [render-text]="true"
+                        [original-size]="false"
+                        [(page)]="page"
+                        
+                        ></pdf-viewer>
+                    </div>
+                }
             </div>
-        }
-    </nz-content>
-    <nz-footer>
-        <div>
-            🔗 <a href="https://github.com/a2823kevin/Online-PDF-Reader" target="_blank">Github Repo: https://github.com/a2823kevin/Online-PDF-Reader</a>
-        </div>
-        <div>
-            ✉️ Contact me: lireez404&#64;gmail.com
-        </div>
-    </nz-footer>
+        </nz-content>
+        <nz-footer>
+            <div style="overflow: hidden;">
+                🔗 <a href="https://github.com/a2823kevin/Online-PDF-Reader" target="_blank">Github Repo: https://github.com/a2823kevin/Online-PDF-Reader</a>
+            </div>
+            <div>
+                ✉️ Contact me: lireez404&#64;gmail.com
+            </div>
+        </nz-footer>
+    </nz-layout>
 </nz-layout>

@@ -21,7 +21,7 @@ import { Role } from '../../models/Role';
   imports: [
     RouterLink, FormsModule, NzMenuModule, NzFlexModule, NzGridModule, NzIconModule, NzInputModule, NzInputNumberModule, NzSliderModule, 
     LogoComponent, RegisterModalComponent, LoginModalComponent, LogoutModalComponent
-],
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

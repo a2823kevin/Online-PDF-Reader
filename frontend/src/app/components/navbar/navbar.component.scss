@@ -1,9 +1,15 @@
+@media (max-width: 1000px) {
+    .navbar {
+        display: none;
+    }
+}
 .navbar {
     top:0%;
     font-family: fantasy, sans-serif, serif;
     font-size: 2cqw;
     user-select: none;
 }
+
 
 .menu {
     font-size: 1.7cqw;
@@ -25,6 +31,9 @@
             &::after {
                 border-bottom: 0.1em solid rgb(150, 0, 0);
             }
+        }
+        nz-icon {
+            font-size: unset;
         }
     }
 }

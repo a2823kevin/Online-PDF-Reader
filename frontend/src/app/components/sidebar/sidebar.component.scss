@@ -1,0 +1,16 @@
+.sidebar {
+    font-family: fantasy, sans-serif, serif;
+    li {
+        padding-block: 3vh;
+        font-size: 3vw;
+        white-space:nowrap;
+        overflow: hidden;
+        nz-icon {
+            padding-inline: calc(50px - 1.5vw);
+        }
+        &.selected {
+            background-color: whitesmoke;
+            color: rgb(150, 0, 0);
+        }
+    }
+}

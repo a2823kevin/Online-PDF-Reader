@@ -28,8 +28,11 @@ export class BookshelfComponent {
   @Input()
   category!: string;
 
-  @ViewChild("rbookshelf", { static: false })
-  rbookshelf!: ElementRef;
+  @ViewChild("rbookshelfLarge", { static: false })
+  rbookshelfLarge!: ElementRef;
+
+  @ViewChild("rbookshelfSmall", { static: false })
+  rbookshelfSmall!: ElementRef;
 
   recentReadIds: string[] = [];
 
@@ -46,16 +49,24 @@ export class BookshelfComponent {
   }
 
   scrollLeft() {
-    scrollBy(this.rbookshelf.nativeElement, {
-      left: -this.rbookshelf.nativeElement.clientWidth, 
+    scrollBy(this.rbookshelfLarge.nativeElement, {
+      left: -this.rbookshelfLarge.nativeElement.clientWidth, 
       behavior: "smooth"
-    })
+    });
+    scrollBy(this.rbookshelfSmall.nativeElement, {
+      left: -this.rbookshelfSmall.nativeElement.clientWidth, 
+      behavior: "smooth"
+    });
   }
 
   scrollRight() {
-    scrollBy(this.rbookshelf.nativeElement, {
-      left: this.rbookshelf.nativeElement.clientWidth, 
+    scrollBy(this.rbookshelfLarge.nativeElement, {
+      left: this.rbookshelfLarge.nativeElement.clientWidth, 
       behavior: "smooth"
-    })
+    });
+    scrollBy(this.rbookshelfSmall.nativeElement, {
+      left: this.rbookshelfSmall.nativeElement.clientWidth, 
+      behavior: "smooth"
+    });
   }
 }

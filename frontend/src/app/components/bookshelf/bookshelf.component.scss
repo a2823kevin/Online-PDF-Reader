@@ -1,8 +1,25 @@
+@media (min-width: 1000px) {
+    .small {
+        display: none;
+    }
+    .bookshelf {
+        max-height: 60vh;
+    }
+}
+
+@media (max-width: 1000px) {
+    .large {
+        display: none;
+    }
+    .bookshelf {
+        max-height: 100vh;
+    }
+}
+
 .bookshelf {
     position: relative;
     left: 2.5%;
     width: 95%;
-    max-height: 60vh;
     overflow-y: auto;
 }
 

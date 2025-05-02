@@ -1,3 +1,12 @@
+@media (max-width: 1000px) {
+    nz-header {
+        display: none;
+    }
+    nz-footer {
+        margin-left: 100px;
+    }
+}
+
 nz-header {
     position: fixed;
     width: 100%;
@@ -6,10 +15,10 @@ nz-header {
     color: whitesmoke !important;
 }
 
-nz-content {
-    margin-top: 13vh;
-    margin-bottom: 2vh;
-    margin-inline: 2%;
+nz-sider {
+    position: fixed !important;
+    height: 100%;
+    z-index: 999;
 }
 
 nz-footer {
@@ -31,3 +40,17 @@ nz-footer {
         cursor: pointer;
     }
 }
+
+.ant-layout-sider {
+    background: linear-gradient(60deg, rgb(150, 0, 0), rgb(100, 0, 0));
+}
+
+.ant-layout-sider-trigger {
+    background: rgb(75, 0, 0);
+}
+
+.ant-menu {
+    color: whitesmoke !important;
+    background: transparent !important;
+}
+

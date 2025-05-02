@@ -21,7 +21,6 @@ export function tokenGetter() {
 
 export function provideJwtOptions(jwtConfigService: JwtConfigService) {
   jwtConfigService.load();
-  console.log(jwtConfigService.getAllowedDomains());
   return {
     tokenGetter: tokenGetter,
     allowedDomains: jwtConfigService.getAllowedDomains(),

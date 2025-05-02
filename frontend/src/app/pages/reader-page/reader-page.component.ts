@@ -1,19 +1,20 @@
-import { Component, HostListener, OnInit, signal, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { PdfViewerComponent, PdfViewerModule } from 'ng2-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { Bookmark } from '../../models/Bookmark';
 import { NzFlexModule } from 'ng-zorro-antd/flex';
 import { Title } from '@angular/platform-browser';
+import { SidebarComponent } from "../../components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-reader-page',
   imports: [
-    NzLayoutModule, NzFlexModule, PdfViewerModule, 
-    NavbarComponent
-  ],
+    NzLayoutModule, NzFlexModule, PdfViewerModule,
+    NavbarComponent, SidebarComponent
+],
   templateUrl: './reader-page.component.html',
   styleUrl: './reader-page.component.scss'
 })

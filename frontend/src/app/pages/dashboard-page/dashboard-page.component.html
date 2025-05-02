@@ -1,16 +1,23 @@
 <nz-layout>
-    <nz-header>
-        <app-navbar page="dashboard"></app-navbar>
-    </nz-header>
-    <nz-content>
-        Dashboard hasn't been implemented
-    </nz-content>
-    <nz-footer>
-        <div>
-            🔗 <a href="https://github.com/a2823kevin/Online-PDF-Reader" target="_blank">Github Repo: https://github.com/a2823kevin/Online-PDF-Reader</a>
-        </div>
-        <div>
-            ✉️ Contact me: lireez404&#64;gmail.com
-        </div>
-    </nz-footer>
+    <nz-sider class="sider" nzCollapsible nzWidth="50vw" [nzCollapsedWidth]="100" [nzCollapsed]="true">
+        <app-sidebar page="dashboard"></app-sidebar>
+    </nz-sider>
+    <nz-layout>
+        <nz-header>
+            <app-navbar page="dashboard"></app-navbar>
+        </nz-header>
+        <nz-content>
+            <div class="bs">
+                Dashboard hasn't been implemented
+            </div>
+        </nz-content>
+        <nz-footer>
+            <div style="overflow: hidden;">
+                🔗 <a href="https://github.com/a2823kevin/Online-PDF-Reader" target="_blank">Github Repo: https://github.com/a2823kevin/Online-PDF-Reader</a>
+            </div>
+            <div>
+                ✉️ Contact me: lireez404&#64;gmail.com
+            </div>
+        </nz-footer>
+    </nz-layout>
 </nz-layout>

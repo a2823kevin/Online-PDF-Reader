@@ -6,12 +6,10 @@
         ).length>0
     ) {
         <div nz-row style="padding-block: 2vh;">
-            
-            <div nz-col nzSpan="6">
+            <div class="large" nz-col nzSpan="6">
                 <app-upload-area></app-upload-area>
             </div>
-
-            <div nz-col nzSpan="18">
+            <div class="large" nz-col nzSpan="18">
                 <div>
                     <h1 style="padding-left: 2.5%;">Recently read</h1>
                     <div style="position: relative;">
@@ -19,7 +17,7 @@
                             <nz-icon nzType="left" nzTheme="outline" />
                         </button>
                     
-                        <div #rbookshelf nz-row class="bookshelf recent">
+                        <div #rbookshelfLarge nz-row class="bookshelf recent">
                             @for (
                                 book of 
                                     (this.userContextService.getBooks()
@@ -41,12 +39,49 @@
                 </div>
             </div>
 
+
+            <div class="small" nz-col nzSpan="24">
+                <app-upload-area></app-upload-area>
+            </div>
+            <div class="small" nz-col nzSpan="24">
+                <div>
+                    <h1 style="padding-left: 2.5%;">Recently read</h1>
+                    <div style="position: relative;">
+                        <button class="bookshelfBtn toLeft" nz-button nzShape="circle" (click)="scrollLeft()">
+                            <nz-icon nzType="left" nzTheme="outline" />
+                        </button>
+                    
+                        <div #rbookshelfSmall nz-row class="bookshelf recent">
+                            @for (
+                                book of 
+                                    (this.userContextService.getBooks()
+                                    | filterByIds:recentReadIds
+                                    | filterByQuery:navbarctlContextService.getBookNameContainString()
+                                    );
+                                track $index
+                            ) {
+                                <div nz-col nzSpan="24">
+                                    <app-book [book]="book"></app-book>
+                                </div>
+                            }
+                        </div>
+                
+                        <button class="bookshelfBtn toRight" nz-button nzShape="circle" (click)="scrollRight()">
+                            <nz-icon nzType="right" nzTheme="outline" />
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 
     }
     @else {
         <div nz-row style="padding-block: 2vh;">
-            <div nz-col nzSpan="6">
+            <div class="large" nz-col nzSpan="6">
+                <app-upload-area></app-upload-area>
+            </div>
+
+            <div class="small" nz-col nzSpan="24">
                 <app-upload-area></app-upload-area>
             </div>
         </div>
@@ -69,7 +104,11 @@
                         | filterByCategory:category);
                     track $index
                 ) {
-                    <div nz-col nzSpan="6">
+                    <div class="large" nz-col nzSpan="6">
+                        <app-book [book]="book"></app-book>
+                    </div>
+
+                    <div class="small" nz-col nzSpan="24">
                         <app-book [book]="book"></app-book>
                     </div>
                 }

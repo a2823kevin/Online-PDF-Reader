@@ -1,0 +1,26 @@
+<ul class="sidebar" nz-menu nzMode="inline" nzTheme="dark">
+  <li [class]="page==='bookshelf'?'selected':''" routerLink="/bookshelf" >
+    <nz-icon nzType="book" nzTheme="fill" />
+    <span>Bookshelf</span>
+  </li>
+  @if (userContextService.getUserRoles().includes(role.ADMIN)) {
+    <li [class]="page==='dashboard'?'selected':''" routerLink="/dashboard" >
+      <nz-icon nzType="dashboard" nzTheme="fill" />
+      <span>Dashboard</span>
+    </li>
+  }
+  <li (click)="userContextService.getUserName()?openLogout():openLogin()">
+    <nz-icon nzType="lock" nzTheme="fill" />
+    <span>{{userContextService.getUserName()?"Logout":"Login"}}</span>
+  </li>
+  @if (!userContextService.getUserName()) {
+    <li (click)="openRegister()">
+      <nz-icon nzType="plus-square" nzTheme="fill" />
+      <span>Register</span>
+    </li>
+  }
+</ul>
+
+<app-login-modal [(isVisible)]="isLoginModalVisible"></app-login-modal>
+<app-register-modal [(isVisible)]="isRegisterModalVisible"></app-register-modal>
+<app-logout-modal [(isVisible)]="isLogoutModalVisible"></app-logout-modal>
