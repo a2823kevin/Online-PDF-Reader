@@ -68,3 +68,10 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           service: ${{ env.ECS_SERVICE_NAME }}
           task-definition: task-definition.json
+
+      - name: Force ECS to redeploy with latest image
+        run: |
+          aws ecs update-service \
+            --cluster $CLUSTER_NAME \
+            --service $SERVICE_NAME \
+            --force-new-deployment
